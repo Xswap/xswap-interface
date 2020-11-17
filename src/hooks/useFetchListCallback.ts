@@ -1,6 +1,6 @@
 import { nanoid } from '@reduxjs/toolkit'
-import { ChainId } from '@uniswap/sdk'
-import { TokenList } from '@uniswap/token-lists'
+import { ChainId } from '@eliteswap/sdk'
+import { TokenList } from '@eliteswap/token-lists'
 import { useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import { getNetworkLibrary, NETWORK_CHAIN_ID } from '../connectors'
