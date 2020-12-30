@@ -1,11 +1,11 @@
 import { Contract } from '@ethersproject/contracts'
-import { abi as GOVERNANCE_ABI } from '@eliteswap/governance/build/EliteGovernorAlpha.json'
-import { abi as ELT_ABI } from '@eliteswap/governance/build/Elt.json'
-import { abi as STAKING_REWARDS_ABI } from '@eliteswap/liquidity-staker/build/EliteStakingRewards.json'
-import { ChainId, WETH } from '@eliteswap/sdk'
-import { abi as IEliteswapV2PairABI } from '@eliteswap/v2-core/build/IEliteswapV2Pair.json'
+import { abi as GOVERNANCE_ABI } from '@xswap/governance/build/XswapGovernorAlpha.json'
+import { abi as xswap_ABI } from '@xswap/governance/build/Xswap.json'
+import { abi as STAKING_REWARDS_ABI } from '@xswap/liquidity-staker/build/XswapStakingRewards.json'
+import { ChainId, WETH } from '@xswap/sdk'
+import { abi as IXswapV2PairABI } from '@xswap/v2-core/build/IXswapV2Pair.json'
 import { useMemo } from 'react'
-import { GOVERNANCE_ADDRESS, ELT } from '../constants'
+import { GOVERNANCE_ADDRESS, XSWAP } from '../constants'
 import {
   ARGENT_WALLET_DETECTOR_ABI,
   ARGENT_WALLET_DETECTOR_MAINNET_ADDRESS
@@ -77,7 +77,7 @@ export function useBytes32TokenContract(tokenAddress?: string, withSignerIfPossi
 }
 
 export function usePairContract(pairAddress?: string, withSignerIfPossible?: boolean): Contract | null {
-  return useContract(pairAddress, IEliteswapV2PairABI, withSignerIfPossible)
+  return useContract(pairAddress, IXswapV2PairABI, withSignerIfPossible)
 }
 
 export function useMulticallContract(): Contract | null {
@@ -94,9 +94,9 @@ export function useGovernanceContract(): Contract | null {
   return useContract(GOVERNANCE_ADDRESS, GOVERNANCE_ABI, true)
 }
 
-export function useEltContract(): Contract | null {
+export function useXswapContract(): Contract | null {
   const { chainId } = useActiveWeb3React()
-  return useContract(chainId ? ELT[chainId].address : undefined, ELT_ABI, true)
+  return useContract(chainId ? XSWAP[chainId].address : undefined, XSWAP_ABI, true)
 }
 
 export function useStakingContract(stakingAddress?: string, withSignerIfPossible?: boolean): Contract | null {

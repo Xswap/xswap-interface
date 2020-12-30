@@ -1,4 +1,4 @@
-import { Token, TokenAmount } from '@eliteswap/sdk'
+import { Token, TokenAmount } from '@xswap/sdk'
 import { useMemo } from 'react'
 import { useAllTokenBalances } from '../../state/wallet/hooks'
 

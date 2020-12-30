@@ -1,5 +1,5 @@
-import { ELT } from './../../constants/index'
-import { TokenAmount, JSBI, ChainId } from '@eliteswap/sdk'
+import { XSWAP } from './../../constants/index'
+import { TokenAmount, JSBI, ChainId } from '@xswap/sdk'
 import { TransactionResponse } from '@ethersproject/providers'
 import { useEffect, useState } from 'react'
 import { useActiveWeb3React } from '../../hooks'
@@ -66,7 +66,7 @@ export function useUserClaimData(account: string | null | undefined): UserClaimD
   return account && chainId ? claimInfo[key] : undefined
 }
 
-// check if user is in blob and has not yet claimed ELT
+// check if user is in blob and has not yet claimed XSWAP
 export function useUserHasAvailableClaim(account: string | null | undefined): boolean {
   const userClaimData = useUserClaimData(account)
   const distributorContract = useMerkleDistributorContract()
@@ -80,12 +80,12 @@ export function useUserUnclaimedAmount(account: string | null | undefined): Toke
   const userClaimData = useUserClaimData(account)
   const canClaim = useUserHasAvailableClaim(account)
 
-  const elt = chainId ? ELT[chainId] : undefined
-  if (!elt) return undefined
+  const xswap = chainId ? XSWAP[chainId] : undefined
+  if (!xswap) return undefined
   if (!canClaim || !userClaimData) {
-    return new TokenAmount(elt, JSBI.BigInt(0))
+    return new TokenAmount(xswap, JSBI.BigInt(0))
   }
-  return new TokenAmount(elt, JSBI.BigInt(userClaimData.amount))
+  return new TokenAmount(xswap, JSBI.BigInt(userClaimData.amount))
 }
 
 export function useClaimCallback(
@@ -112,7 +112,7 @@ export function useClaimCallback(
         .claim(...args, { value: null, gasLimit: calculateGasMargin(estimatedGasLimit) })
         .then((response: TransactionResponse) => {
           addTransaction(response, {
-            summary: `Claimed ${unClaimedAmount?.toSignificant(4)} ELT`,
+            summary: `Claimed ${unClaimedAmount?.toSignificant(4)} XSWAP`,
             claim: { recipient: account }
           })
           return response.hash

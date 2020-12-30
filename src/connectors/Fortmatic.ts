@@ -1,4 +1,4 @@
-import { ChainId } from '@eliteswap/sdk'
+import { ChainId } from '@xswap/sdk'
 import { FortmaticConnector as FortmaticConnectorCore } from '@web3-react/fortmatic-connector'
 
 export const OVERLAY_READY = 'OVERLAY_READY'

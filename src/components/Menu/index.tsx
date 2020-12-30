@@ -85,7 +85,7 @@ const MenuItem = styled(ExternalLink)`
   }
 `
 
-const CODE_LINK = 'https://github.com/EthereumEliteswap/eliteswap-interface'
+const CODE_LINK = 'https://github.com/xswap/xswap-interface'
 
 export default function Menu() {
   // const { account } = useActiveWeb3React()
@@ -113,21 +113,21 @@ export default function Menu() {
             <MessageCircle size={14} />
             Discord
           </MenuItem>
-          <MenuItem id="link" href="https://telegram.org/@EliteSwap">
+          <MenuItem id="link" href="https://telegram.org/@xSwap">
             <PieChart size={14} />
             Telegram
           </MenuItem>
-          <MenuItem id="link" href="https://twitter.com/EliteSwap2020?s=09">
+          <MenuItem id="link" href="https://twitter.com/xSwap2020?s=09">
             <Twitter size={14} />
             Twitter
           </MenuItem>
-          <MenuItem id="link" href="https://eliteswap.io/info">
+          <MenuItem id="link" href="https://xswap.io/info">
             <PieChart size={14} />
             Analytics
           </MenuItem>
           {/* {account && (
             <ButtonPrimary onClick={openClaimModal} padding="8px 16px" width="100%" borderRadius="12px" mt="0.5rem">
-              Claim ELT
+              Claim XSWAP
             </ButtonPrimary>
           )} */}
         </MenuFlyout>

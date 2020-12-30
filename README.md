@@ -1,26 +1,26 @@
-# Elite Swap Interface
+# Xswap Interface
 
-[![Lint](https://github.com/EthereumEliteswap/eliteswap-interface/workflows/Lint/badge.svg)](https://github.com/EthereumEliteswap/eliteswap-interface/actions?query=workflow%3ALint)
-[![Tests](https://github.com/EthereumEliteswap/eliteswap-interface/workflows/Tests/badge.svg)](https://github.com/EthereumEliteswap/eliteswap-interface/actions?query=workflow%3ATests)
+[![Lint](https://github.com/xswap/xswap-interface/workflows/Lint/badge.svg)](https://github.com/xswap/xswap-interface/actions?query=workflow%3ALint)
+[![Tests](https://github.com/xswap/xswap-interface/workflows/Tests/badge.svg)](https://github.com/xswap/xswap-interface/actions?query=workflow%3ATests)
 [![Styled With Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://prettier.io/)
 
-An open source interface for Elite Swap -- a protocol for decentralized exchange of Ethereum tokens.
+An open source interface for Xswap -- a protocol for decentralized exchange of Ethereum tokens.
 
-- Interface: [eliteswap.io](https://eliteswap.io)
-- Discord: [Elite Swap](https://discord.gg/yFsjhuQ7Kj)
-- Telegram: [Elite Swap](https://telegram.org/@EliteSwap)
-- Twitter: [@EliteSwap2020](https://twitter.com/EliteSwap2020?s=09)
+- Interface: [xswap.io](https://xswap.io)
+- Discord: [Xswap](https://discord.gg/yFsjhuQ7Kj)
+- Telegram: [Xswap](https://telegram.org/@XSwap)
+- Twitter: [@XSwap2020](https://twitter.com/XSwap2020?s=09)
 - Whitepaper: [Link](https://uniswap.org/whitepaper.pdf)
 
-## Accessing Elite Swap Interface
+## Accessing Xswap Interface
 
-[latest release](https://github.com/EthereumEliteswap/eliteswap-interface/releases/latest), 
-or visit [https://eliteswap.io](https://eliteswap.io).
+[latest release](https://github.com/xswap/xswap-interface/releases/latest), 
+or visit [https://xswap.io](https://xswap.io).
 
 ## Listing a token
 
 Please see the
-[@eliteswap/default-token-list](https://github.com/EthereumEliteswap/default-token-list) 
+[@xswap/default-token-list](https://github.com/xswap/default-token-list) 
 repository.
 
 ## Development
@@ -46,7 +46,7 @@ To have the interface default to a different network when a wallet is not connec
 3. Change `REACT_APP_NETWORK_URL` to e.g. `"https://{YOUR_NETWORK_ID}.infura.io/v3/{YOUR_INFURA_KEY}"` 
 
 Note that the interface only works on testnets where both 
-[Elite Swap V2 Factory](https://github.com/EthereumEliteswap/eliteswap-v2-core/blob/master/contracts/EliteswapV2Factory.sol) and 
+[Xswap V2 Factory](https://github.com/xswap/xswap-v2-core/blob/master/contracts/XswapV2Factory.sol) and 
 [multicall](https://github.com/makerdao/multicall) are deployed.
 The interface will not work on other networks.
 

@@ -1,4 +1,4 @@
-import { Trade, TradeType } from '@eliteswap/sdk'
+import { Trade, TradeType } from '@xswap/sdk'
 import React, { useContext } from 'react'
 import styled, { ThemeContext } from 'styled-components'
 import { Field } from '../../state/swap/actions'
@@ -105,7 +105,7 @@ export function AdvancedSwapDetails({ trade }: AdvancedSwapDetailsProps) {
             </>
           )}
           <AutoColumn style={{ padding: '0 24px' }}>
-            <InfoLink href={'https://eliteswap.io/info/pair/' + trade.route.pairs[0].liquidityToken.address} target="_blank">
+            <InfoLink href={'https://xswap.io/info/pair/' + trade.route.pairs[0].liquidityToken.address} target="_blank">
               View pair analytics ↗
             </InfoLink>
           </AutoColumn>

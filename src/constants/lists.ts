@@ -1,6 +1,6 @@
-// the Elite Swap Default token list lives here
+// the Xswap Default token list lives here
 export const DEFAULT_TOKEN_LIST_URL =
-  'https://unpkg.com/@eliteswap/default-token-list@latest'
+  'https://unpkg.com/@xswap/default-token-list@latest'
 
 export const DEFAULT_LIST_OF_LISTS: string[] = [
   DEFAULT_TOKEN_LIST_URL,

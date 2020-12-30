@@ -1,5 +1,5 @@
-import { ELT } from './../../constants/index'
-import { Currency, CurrencyAmount, ETHER, JSBI, Token, TokenAmount } from '@eliteswap/sdk'
+import { XSWAP } from './../../constants/index'
+import { Currency, CurrencyAmount, ETHER, JSBI, Token, TokenAmount } from '@xswap/sdk'
 import { useMemo } from 'react'
 import ERC20_INTERFACE from '../../constants/abis/erc20'
 import { useAllTokens } from '../../hooks/Tokens'
@@ -8,7 +8,7 @@ import { useMulticallContract } from '../../hooks/useContract'
 import { isAddress } from '../../utils'
 import { useSingleContractMultipleData, useMultipleContractSingleData } from '../multicall/hooks'
 import { useUserUnclaimedAmount } from '../claim/hooks'
-import { useTotalEltEarned } from '../stake/hooks'
+import { useTotalXswapEarned } from '../stake/hooks'
 
 /**
  * Returns a map of the given addresses to their eventually consistent ETH balances.
@@ -134,23 +134,23 @@ export function useAllTokenBalances(): { [tokenAddress: string]: TokenAmount | u
   return balances ?? {}
 }
 
-// get the total owned, unclaimed, and unharvested ELT for account
-export function useAggregateEltBalance(): TokenAmount | undefined {
+// get the total owned, unclaimed, and unharvested XSWAP for account
+export function useAggregateXswapBalance(): TokenAmount | undefined {
   const { account, chainId } = useActiveWeb3React()
 
-  const elt = chainId ? ELT[chainId] : undefined
+  const xswap = chainId ? XSWAP[chainId] : undefined
 
-  const eltBalance: TokenAmount | undefined = useTokenBalance(account ?? undefined, elt)
-  const eltUnclaimed: TokenAmount | undefined = useUserUnclaimedAmount(account)
-  const eltUnHarvested: TokenAmount | undefined = useTotalEltEarned()
+  const xswapBalance: TokenAmount | undefined = useTokenBalance(account ?? undefined, xswap)
+  const xswapUnclaimed: TokenAmount | undefined = useUserUnclaimedAmount(account)
+  const xswapUnHarvested: TokenAmount | undefined = useTotalXswapEarned()
 
-  if (!elt) return undefined
+  if (!xswap) return undefined
 
   return new TokenAmount(
-    elt,
+    xswap,
     JSBI.add(
-      JSBI.add(eltBalance?.raw ?? JSBI.BigInt(0), eltUnclaimed?.raw ?? JSBI.BigInt(0)),
-      eltUnHarvested?.raw ?? JSBI.BigInt(0)
+      JSBI.add(xswapBalance?.raw ?? JSBI.BigInt(0), xswapUnclaimed?.raw ?? JSBI.BigInt(0)),
+      xswapUnHarvested?.raw ?? JSBI.BigInt(0)
     )
   )
 }

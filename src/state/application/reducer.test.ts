@@ -1,4 +1,4 @@
-import { ChainId } from '@eliteswap/sdk'
+import { ChainId } from '@xswap/sdk'
 import { createStore, Store } from 'redux'
 import { addPopup, ApplicationModal, removePopup, setOpenModal, updateBlockNumber } from './actions'
 import reducer, { ApplicationState } from './reducer'

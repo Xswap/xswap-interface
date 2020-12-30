@@ -14,8 +14,8 @@ import { useAllProposalData, ProposalData, useUserVotes, useUserDelegatee } from
 import DelegateModal from '../../components/vote/DelegateModal'
 import { useTokenBalance } from '../../state/wallet/hooks'
 import { useActiveWeb3React } from '../../hooks'
-import { ELT, ZERO_ADDRESS } from '../../constants'
-import { JSBI, TokenAmount, ChainId } from '@eliteswap/sdk'
+import { XSWAP, ZERO_ADDRESS } from '../../constants'
+import { JSBI, TokenAmount, ChainId } from '@xswap/sdk'
 import { shortenAddress, getEtherscanLink } from '../../utils'
 import Loader from '../../components/Loader'
 import FormattedCurrencyAmount from '../../components/FormattedCurrencyAmount'
@@ -114,12 +114,12 @@ export default function Vote() {
 
   // user data
   const availableVotes: TokenAmount | undefined = useUserVotes()
-  const eltBalance: TokenAmount | undefined = useTokenBalance(account ?? undefined, chainId ? ELT[chainId] : undefined)
+  const xswapBalance: TokenAmount | undefined = useTokenBalance(account ?? undefined, chainId ? XSWAP[chainId] : undefined)
   const userDelegatee: string | undefined = useUserDelegatee()
 
   // show delegation option if they have have a balance, but have not delegated
   const showUnlockVoting = Boolean(
-    eltBalance && JSBI.notEqual(eltBalance.raw, JSBI.BigInt(0)) && userDelegatee === ZERO_ADDRESS
+    xswapBalance && JSBI.notEqual(xswapBalance.raw, JSBI.BigInt(0)) && userDelegatee === ZERO_ADDRESS
   )
 
   return (
@@ -136,11 +136,11 @@ export default function Vote() {
           <CardSection>
             <AutoColumn gap="md">
               <RowBetween>
-                <TYPE.white fontWeight={600}>Elite Swap Governance</TYPE.white>
+                <TYPE.white fontWeight={600}>Xswap Governance</TYPE.white>
               </RowBetween>
               <RowBetween>
                 <TYPE.white fontSize={14}>
-                  ELT tokens represent voting shares in Elite Swap governance. You can vote on each proposal yourself or
+                  XSWAp tokens represent voting shares in Xswap governance. You can vote on each proposal yourself or
                   delegate your votes to third party.
                 </TYPE.white>
               </RowBetween>
@@ -167,12 +167,12 @@ export default function Vote() {
             <TYPE.body fontWeight={500} mr="6px">
               <FormattedCurrencyAmount currencyAmount={availableVotes} /> Votes
             </TYPE.body>
-          ) : eltBalance &&
+          ) : xswapBalance &&
             userDelegatee &&
             userDelegatee !== ZERO_ADDRESS &&
-            JSBI.notEqual(JSBI.BigInt(0), eltBalance?.raw) ? (
+            JSBI.notEqual(JSBI.BigInt(0), xswapBalance?.raw) ? (
             <TYPE.body fontWeight={500} mr="6px">
-              <FormattedCurrencyAmount currencyAmount={eltBalance} /> Votes
+              <FormattedCurrencyAmount currencyAmount={xswapBalance} /> Votes
             </TYPE.body>
           ) : (
             ''
@@ -222,7 +222,7 @@ export default function Vote() {
         })}
       </TopSection>
       <TYPE.subHeader color="text3">
-        A minimum threshold of the total ELT supply is required to submit proposals
+        A minimum threshold of the total XSWAP supply is required to submit proposals
       </TYPE.subHeader>
     </PageWrapper>
   )

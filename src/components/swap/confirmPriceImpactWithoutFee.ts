@@ -1,4 +1,4 @@
-import { Percent } from '@eliteswap/sdk'
+import { Percent } from '@xswap/sdk'
 import { ALLOWED_PRICE_IMPACT_HIGH, PRICE_IMPACT_WITHOUT_FEE_CONFIRM_MIN } from '../../constants'
 
 /**

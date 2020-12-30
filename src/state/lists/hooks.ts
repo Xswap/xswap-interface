@@ -1,5 +1,5 @@
-import { ChainId, Token } from '@eliteswap/sdk'
-import { Tags, TokenInfo, TokenList } from '@eliteswap/token-lists'
+import { ChainId, Token } from '@xswap/sdk'
+import { Tags, TokenInfo, TokenList } from '@xswap/token-lists'
 import { useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import { AppState } from '../index'

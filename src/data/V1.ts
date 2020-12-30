@@ -4,7 +4,7 @@ import {
   TokenAmount,
   Trade,
   WETH
-} from '@eliteswap/sdk'
+} from '@xswap/sdk'
 import { Version } from '../hooks/useToggledVersion'
 
 export class MockV1Pair extends Pair {

@@ -13,7 +13,7 @@ import { isAddress } from 'ethers/lib/utils'
 import useENS from '../../hooks/useENS'
 import { useDelegateCallback } from '../../state/governance/hooks'
 import { useTokenBalance } from '../../state/wallet/hooks'
-import { ELT } from '../../constants'
+import { XSWAP } from '../../constants'
 import { LoadingView, SubmittedView } from '../ModalViews'
 
 const ContentWrapper = styled(AutoColumn)`
@@ -55,7 +55,7 @@ export default function DelegateModal({ isOpen, onDismiss, title }: VoteModalPro
   const { address: parsedAddress } = useENS(activeDelegate)
 
   // get the number of votes available to delegate
-  const eltBalance = useTokenBalance(account ?? undefined, chainId ? ELT[chainId] : undefined)
+  const xswapBalance = useTokenBalance(account ?? undefined, chainId ? XSWAP[chainId] : undefined)
 
   const delegateCallback = useDelegateCallback()
 
@@ -96,7 +96,7 @@ export default function DelegateModal({ isOpen, onDismiss, title }: VoteModalPro
               <TYPE.mediumHeader fontWeight={500}>{title}</TYPE.mediumHeader>
               <StyledClosed stroke="black" onClick={wrappedOndismiss} />
             </RowBetween>
-            <TYPE.body>Earned ELT tokens represent voting shares in Elite Swap governance.</TYPE.body>
+            <TYPE.body>Earned XSWAP tokens represent voting shares in Xswap governance.</TYPE.body>
             <TYPE.body>
               You can either vote on each proposal yourself or delegate your votes to a third party.
             </TYPE.body>
@@ -116,7 +116,7 @@ export default function DelegateModal({ isOpen, onDismiss, title }: VoteModalPro
         <LoadingView onDismiss={wrappedOndismiss}>
           <AutoColumn gap="12px" justify={'center'}>
             <TYPE.largeHeader>{usingDelegate ? 'Delegating votes' : 'Unlocking Votes'}</TYPE.largeHeader>
-            <TYPE.main fontSize={36}>{eltBalance?.toSignificant(4)}</TYPE.main>
+            <TYPE.main fontSize={36}>{xswapBalance?.toSignificant(4)}</TYPE.main>
           </AutoColumn>
         </LoadingView>
       )}
@@ -124,7 +124,7 @@ export default function DelegateModal({ isOpen, onDismiss, title }: VoteModalPro
         <SubmittedView onDismiss={wrappedOndismiss} hash={hash}>
           <AutoColumn gap="12px" justify={'center'}>
             <TYPE.largeHeader>Transaction Submitted</TYPE.largeHeader>
-            <TYPE.main fontSize={36}>{eltBalance?.toSignificant(4)}</TYPE.main>
+            <TYPE.main fontSize={36}>{xswapBalance?.toSignificant(4)}</TYPE.main>
           </AutoColumn>
         </SubmittedView>
       )}

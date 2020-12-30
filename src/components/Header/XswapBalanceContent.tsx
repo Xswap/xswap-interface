@@ -1,17 +1,17 @@
-import { ChainId, TokenAmount } from '@eliteswap/sdk'
+import { ChainId, TokenAmount } from '@xswap/sdk'
 import React, { useMemo } from 'react'
 import { X } from 'react-feather'
 import styled from 'styled-components'
 import tokenLogo from '../../assets/images/token-logo.png'
-import { ELT } from '../../constants'
+import { XSWAP } from '../../constants'
 import { useTotalSupply } from '../../data/TotalSupply'
 import { useActiveWeb3React } from '../../hooks'
 import { useMerkleDistributorContract } from '../../hooks/useContract'
 import useCurrentBlockTimestamp from '../../hooks/useCurrentBlockTimestamp'
-import { useTotalEltEarned } from '../../state/stake/hooks'
-import { useAggregateEltBalance, useTokenBalance } from '../../state/wallet/hooks'
-import { ExternalLink, StyledInternalLink, TYPE, EltTokenAnimated } from '../../theme'
-import { computeEltCirculation } from '../../utils/computeEltCirculation'
+import { useTotalXswapEarned } from '../../state/stake/hooks'
+import { useAggregateXswapBalance, useTokenBalance } from '../../state/wallet/hooks'
+import { ExternalLink, StyledInternalLink, TYPE, XswapTokenAnimated } from '../../theme'
+import { computeXswapCirculation } from '../../utils/computeXswapCirculation'
 import useUSDCPrice from '../../utils/useUSDCPrice'
 import { AutoColumn } from '../Column'
 import { RowBetween } from '../Row'
@@ -40,24 +40,24 @@ const StyledClose = styled(X)`
 /**
  * Content for balance stats modal
  */
-export default function EltBalanceContent({ setShowEltBalanceModal }: { setShowEltBalanceModal: any }) {
+export default function XswapBalanceContent({ setShowXswapBalanceModal }: { setShowXswapBalanceModal: any }) {
   const { account, chainId } = useActiveWeb3React()
-  const elt = chainId ? ELT[chainId] : undefined
+  const Xswap = chainId ? XSWAP[chainId] : undefined
 
-  const total = useAggregateEltBalance()
-  const eltBalance: TokenAmount | undefined = useTokenBalance(account ?? undefined, elt)
-  const eltToClaim: TokenAmount | undefined = useTotalEltEarned()
+  const total = useAggregateXswapBalance()
+  const xswapBalance: TokenAmount | undefined = useTokenBalance(account ?? undefined, xswap)
+  const xswapToClaim: TokenAmount | undefined = useTotalXswapEarned()
 
-  const totalSupply: TokenAmount | undefined = useTotalSupply(elt)
-  const eltPrice = useUSDCPrice(elt)
+  const totalSupply: TokenAmount | undefined = useTotalSupply(xswap)
+  const xswapPrice = useUSDCPrice(xswap)
   const blockTimestamp = useCurrentBlockTimestamp()
-  const unclaimedElt = useTokenBalance(useMerkleDistributorContract()?.address, elt)
+  const unclaimedXswap = useTokenBalance(useMerkleDistributorContract()?.address, xswap)
   const circulation: TokenAmount | undefined = useMemo(
     () =>
-      blockTimestamp && elt && chainId === ChainId.MAINNET
-        ? computeEltCirculation(elt, blockTimestamp, unclaimedElt)
+      blockTimestamp && xswap && chainId === ChainId.MAINNET
+        ? computeXswapCirculation(xswap, blockTimestamp, unclaimedXswap)
         : totalSupply,
-    [blockTimestamp, chainId, totalSupply, unclaimedElt, elt]
+    [blockTimestamp, chainId, totalSupply, unclaimedXswap, xswap]
   )
 
   return (
@@ -67,8 +67,8 @@ export default function EltBalanceContent({ setShowEltBalanceModal }: { setShowE
         <CardNoise />
         <CardSection gap="md">
           <RowBetween>
-            <TYPE.white color="white">Your ELT Breakdown</TYPE.white>
-            <StyledClose stroke="white" onClick={() => setShowEltBalanceModal(false)} />
+            <TYPE.white color="white">Your XSWAP Breakdown</TYPE.white>
+            <StyledClose stroke="white" onClick={() => setShowXswapBalanceModal(false)} />
           </RowBetween>
         </CardSection>
         <Break />
@@ -76,7 +76,7 @@ export default function EltBalanceContent({ setShowEltBalanceModal }: { setShowE
           <>
             <CardSection gap="sm">
               <AutoColumn gap="md" justify="center">
-                <EltTokenAnimated width="48px" src={tokenLogo} />{' '}
+                <XswapTokenAnimated width="48px" src={tokenLogo} />{' '}
                 <TYPE.white fontSize={48} fontWeight={600} color="white">
                   {total?.toFixed(2, { groupSeparator: ',' })}
                 </TYPE.white>
@@ -84,14 +84,14 @@ export default function EltBalanceContent({ setShowEltBalanceModal }: { setShowE
               <AutoColumn gap="md">
                 <RowBetween>
                   <TYPE.white color="white">Balance:</TYPE.white>
-                  <TYPE.white color="white">{eltBalance?.toFixed(2, { groupSeparator: ',' })}</TYPE.white>
+                  <TYPE.white color="white">{xswapBalance?.toFixed(2, { groupSeparator: ',' })}</TYPE.white>
                 </RowBetween>
                 <RowBetween>
                   <TYPE.white color="white">Unclaimed:</TYPE.white>
                   <TYPE.white color="white">
-                    {eltToClaim?.toFixed(4, { groupSeparator: ',' })}{' '}
-                    {eltToClaim && eltToClaim.greaterThan('0') && (
-                      <StyledInternalLink onClick={() => setShowEltBalanceModal(false)} to="/elt">
+                    {xswapToClaim?.toFixed(4, { groupSeparator: ',' })}{' '}
+                    {xswapToClaim && xswapToClaim.greaterThan('0') && (
+                      <StyledInternalLink onClick={() => setShowXswapBalanceModal(false)} to="/xswap">
                         (claim)
                       </StyledInternalLink>
                     )}
@@ -105,19 +105,19 @@ export default function EltBalanceContent({ setShowEltBalanceModal }: { setShowE
         <CardSection gap="sm">
           <AutoColumn gap="md">
             <RowBetween>
-              <TYPE.white color="white">ELT price:</TYPE.white>
-              <TYPE.white color="white">${eltPrice?.toFixed(2) ?? '-'}</TYPE.white>
+              <TYPE.white color="white">XSWAP price:</TYPE.white>
+              <TYPE.white color="white">${xswapPrice?.toFixed(2) ?? '-'}</TYPE.white>
             </RowBetween>
             <RowBetween>
-              <TYPE.white color="white">ELT in circulation:</TYPE.white>
+              <TYPE.white color="white">XSWAP in circulation:</TYPE.white>
               <TYPE.white color="white">{circulation?.toFixed(0, { groupSeparator: ',' })}</TYPE.white>
             </RowBetween>
             <RowBetween>
               <TYPE.white color="white">Total Supply</TYPE.white>
               <TYPE.white color="white">{totalSupply?.toFixed(0, { groupSeparator: ',' })}</TYPE.white>
             </RowBetween>
-            {elt && elt.chainId === ChainId.MAINNET ? (
-              <ExternalLink href={`https://eliteswap.io/info/token/${elt.address}`}>View ELT Analytics</ExternalLink>
+            {xswap && xswap.chainId === ChainId.MAINNET ? (
+              <ExternalLink href={`https://xswap.io/info/token/${xswap.address}`}>View XSWAP Analytics</ExternalLink>
             ) : null}
           </AutoColumn>
         </CardSection>

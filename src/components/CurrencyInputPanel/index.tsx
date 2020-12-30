@@ -1,4 +1,4 @@
-import { Currency, Pair } from '@eliteswap/sdk'
+import { Currency, Pair } from '@xswap/sdk'
 import React, { useState, useContext, useCallback } from 'react'
 import styled, { ThemeContext } from 'styled-components'
 import { darken } from 'polished'

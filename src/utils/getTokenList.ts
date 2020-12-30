@@ -1,5 +1,5 @@
-import { TokenList } from '@eliteswap/token-lists'
-import schema from '@eliteswap/token-lists/src/tokenlist.schema.json'
+import { TokenList } from '@xswap/token-lists'
+import schema from '@xswap/token-lists/src/tokenlist.schema.json'
 import Ajv from 'ajv'
 import contenthashToUri from './contenthashToUri'
 import { parseENSAddress } from './parseENSAddress'
