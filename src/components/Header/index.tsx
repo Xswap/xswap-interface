@@ -1,4 +1,4 @@
-import { ChainId, TokenAmount } from '@eliteswap/sdk'
+import { ChainId, TokenAmount } from '@xswap/sdk'
 import React, { useState } from 'react'
 import { Text } from 'rebass'
 import { NavLink } from 'react-router-dom'
@@ -8,11 +8,11 @@ import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 // import Logo from '../../assets/svg/logo.svg'
-import Logo from '../../assets/images/eliteswap_logo.png'
+import Logo from '../../assets/images/xswap_logo.png'
 // import LogoDark from '../../assets/svg/logo_white.svg'
 import { useActiveWeb3React } from '../../hooks'
 import { useDarkModeManager } from '../../state/user/hooks'
-import { useETHBalances, useAggregateEltBalance } from '../../state/wallet/hooks'
+import { useETHBalances, useAggregateXswapBalance } from '../../state/wallet/hooks'
 import { CardNoise } from '../earn/styled'
 import { CountUp } from 'use-count-up'
 import { TYPE, ExternalLink } from '../../theme'
@@ -29,7 +29,7 @@ import { useUserHasAvailableClaim } from '../../state/claim/hooks'
 import { useUserHasSubmittedClaim } from '../../state/transactions/hooks'
 import { Dots } from '../swap/styleds'
 import Modal from '../Modal'
-import EltBalanceContent from './EltBalanceContent'
+import XswapBalanceContent from './XswapBalanceContent'
 import usePrevious from '../../hooks/usePrevious'
 
 const HeaderFrame = styled.div`
@@ -126,7 +126,7 @@ const AccountElement = styled.div<{ active: boolean }>`
   }
 `
 
-const ELTAmount = styled(AccountElement)`
+const XSWAPAmount = styled(AccountElement)`
   color: white;
   padding: 4px 8px;
   height: 36px;
@@ -135,7 +135,7 @@ const ELTAmount = styled(AccountElement)`
   background: radial-gradient(174.47% 188.91% at 1.84% 0%, #ff007a 0%, #2172e5 100%), #edeef2;
 `
 
-const ELTWrapper = styled.span`
+const XSWAPWrapper = styled.span`
   width: fit-content;
   position: relative;
   cursor: pointer;
@@ -188,7 +188,7 @@ const Title = styled.a`
   }
 `
 
-const EltIcon = styled.div`
+const XswapIcon = styled.div`
   transition: transform 0.3s ease;
   :hover {
     transform: rotate(-5deg);
@@ -275,9 +275,9 @@ export default function Header() {
 
   const { claimTxn } = useUserHasSubmittedClaim(account ?? undefined)
 
-  const aggregateBalance: TokenAmount | undefined = useAggregateEltBalance()
+  const aggregateBalance: TokenAmount | undefined = useAggregateXswapBalance()
 
-  const [showEltBalanceModal, setShowEltBalanceModal] = useState(false)
+  const [showXswapBalanceModal, setShowXswapBalanceModal] = useState(false)
   const showClaimPopup = useShowClaimPopup()
 
   const countUpValue = aggregateBalance?.toFixed(0) ?? '0'
@@ -286,14 +286,14 @@ export default function Header() {
   return (
     <HeaderFrame>
       <ClaimModal />
-      <Modal isOpen={showEltBalanceModal} onDismiss={() => setShowEltBalanceModal(false)}>
-        <EltBalanceContent setShowEltBalanceModal={setShowEltBalanceModal} />
+      <Modal isOpen={showXswapBalanceModal} onDismiss={() => setShowXswapBalanceModal(false)}>
+        <XswapBalanceContent setShowXswapBalanceModal={setShowXswapBalanceModal} />
       </Modal>
       <HeaderRow>
         <Title href=".">
-          <EltIcon>
+          <XswapIcon>
             <img width={'120px'} src={isDark ? Logo : Logo} alt="logo" />
-          </EltIcon>
+          </XswapIcon>
         </Title>
         <HeaderLinks>
           <StyledNavLink id={`swap-nav-link`} to={'/swap'}>
@@ -312,13 +312,13 @@ export default function Header() {
           >
             {t('pool')}
           </StyledNavLink>
-          <StyledNavLink id={`stake-nav-link`} to={'/elt'}>
-            ELT
+          <StyledNavLink id={`stake-nav-link`} to={'/xswap'}>
+            XSWAP
           </StyledNavLink>
           <StyledNavLink id={`stake-nav-link`} to={'/vote'}>
             Vote
           </StyledNavLink>
-          <StyledExternalLink id={`stake-nav-link`} href={'https://eliteswap.io/info'}>
+          <StyledExternalLink id={`stake-nav-link`} href={'https://xswap.io/info'}>
             Charts <span style={{ fontSize: '11px' }}>↗</span>
           </StyledExternalLink>
         </HeaderLinks>
@@ -331,18 +331,18 @@ export default function Header() {
             )}
           </HideSmall>
           {availableClaim && !showClaimPopup && (
-            <ELTWrapper onClick={toggleClaimModal}>
-              <ELTAmount active={!!account && !availableClaim} style={{ pointerEvents: 'auto' }}>
+            <XSWAPWrapper onClick={toggleClaimModal}>
+              <XSWAPAmount active={!!account && !availableClaim} style={{ pointerEvents: 'auto' }}>
                 <TYPE.white padding="0 2px">
-                  {claimTxn && !claimTxn?.receipt ? <Dots>Claiming ELT</Dots> : 'Claim ELT'}
+                  {claimTxn && !claimTxn?.receipt ? <Dots>Claiming XSWAP</Dots> : 'Claim XSWAP'}
                 </TYPE.white>
-              </ELTAmount>
+              </XSWAPAmount>
               <CardNoise />
-            </ELTWrapper>
+            </XSWAPWrapper>
           )}
           {!availableClaim && aggregateBalance && (
-            <ELTWrapper onClick={() => setShowEltBalanceModal(true)}>
-              <ELTAmount active={!!account && !availableClaim} style={{ pointerEvents: 'auto' }}>
+            <XSWAPWrapper onClick={() => setShowXswapBalanceModal(true)}>
+              <XSWAPAmount active={!!account && !availableClaim} style={{ pointerEvents: 'auto' }}>
                 {account && (
                   <HideSmall>
                     <TYPE.white
@@ -361,10 +361,10 @@ export default function Header() {
                     </TYPE.white>
                   </HideSmall>
                 )}
-                ELT
-              </ELTAmount>
+                XSWAP
+              </XSWAPAmount>
               <CardNoise />
-            </ELTWrapper>
+            </XSWAPWrapper>
           )}
           <AccountElement active={!!account} style={{ pointerEvents: 'auto' }}>
             {account && userEthBalance ? (

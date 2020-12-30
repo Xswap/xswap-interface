@@ -1,4 +1,4 @@
-import { JSBI, TokenAmount } from '@eliteswap/sdk'
+import { JSBI, TokenAmount } from '@xswap/sdk'
 import { isAddress } from 'ethers/lib/utils'
 import React, { useEffect, useState } from 'react'
 import { Text } from 'rebass'
@@ -10,7 +10,7 @@ import { ApplicationModal } from '../../state/application/actions'
 import { useModalOpen, useToggleSelfClaimModal } from '../../state/application/hooks'
 import { useClaimCallback, useUserClaimData, useUserUnclaimedAmount } from '../../state/claim/hooks'
 import { useUserHasSubmittedClaim } from '../../state/transactions/hooks'
-import { CloseIcon, CustomLightSpinner, ExternalLink, TYPE, EltTokenAnimated } from '../../theme'
+import { CloseIcon, CustomLightSpinner, ExternalLink, TYPE, XswapTokenAnimated } from '../../theme'
 import { getEtherscanLink } from '../../utils'
 import { ButtonPrimary } from '../Button'
 import { AutoColumn, ColumnCenter } from '../Column'
@@ -98,11 +98,11 @@ export default function ClaimModal() {
             <CardNoise />
             <CardSection gap="md">
               <RowBetween>
-                <TYPE.white fontWeight={500}>Claim ELT</TYPE.white>
+                <TYPE.white fontWeight={500}>Claim XSWAP</TYPE.white>
                 <CloseIcon onClick={toggleClaimModal} style={{ zIndex: 99 }} color="white" />
               </RowBetween>
               <TYPE.white fontWeight={700} fontSize={36}>
-                {unclaimedAmount?.toFixed(0, { groupSeparator: ',' } ?? '-')} ELT
+                {unclaimedAmount?.toFixed(0, { groupSeparator: ',' } ?? '-')} XSWAP
               </TYPE.white>
             </CardSection>
             <Break />
@@ -110,7 +110,7 @@ export default function ClaimModal() {
               {userClaimData?.flags?.isSOCKS && (
                 <RowBetween>
                   <TYPE.subHeader color="white">SOCKS</TYPE.subHeader>
-                  <TYPE.subHeader color="white">{SOCKS_AMOUNT} ELT</TYPE.subHeader>
+                  <TYPE.subHeader color="white">{SOCKS_AMOUNT} XSWAP</TYPE.subHeader>
                 </RowBetween>
               )}
               {userClaimData?.flags?.isLP &&
@@ -122,21 +122,21 @@ export default function ClaimModal() {
                       {unclaimedAmount
                         .subtract(new TokenAmount(unclaimedAmount.token, nonLPAmount))
                         .toFixed(0, { groupSeparator: ',' })}{' '}
-                      ELT
+                      XSWAP
                     </TYPE.subHeader>
                   </RowBetween>
                 )}
               {userClaimData?.flags?.isUser && (
                 <RowBetween>
                   <TYPE.subHeader color="white">User</TYPE.subHeader>
-                  <TYPE.subHeader color="white">{USER_AMOUNT} ELT</TYPE.subHeader>
+                  <TYPE.subHeader color="white">{USER_AMOUNT} XSWAP</TYPE.subHeader>
                 </RowBetween>
               )}
             </CardSection>
           </ModalUpper>
           <AutoColumn gap="md" style={{ padding: '1rem', paddingTop: '0' }} justify="center">
             <TYPE.subHeader fontWeight={500}>
-              As a member of the Elite Swap community you may claim ELT to be used for voting and governance. <br />{' '}
+              As a member of the Xswap community you may claim XSWAP to be used for voting and governance. <br />{' '}
               <br />
             </TYPE.subHeader>
             <ButtonPrimary
@@ -147,7 +147,7 @@ export default function ClaimModal() {
               mt="1rem"
               onClick={onClaim}
             >
-              Claim ELT
+              Claim XSWAP
             </ButtonPrimary>
           </AutoColumn>
         </ContentWrapper>
@@ -164,7 +164,7 @@ export default function ClaimModal() {
             {!claimConfirmed ? (
               <CustomLightSpinner src={Circle} alt="loader" size={'90px'} />
             ) : (
-              <EltTokenAnimated width="72px" src={tokenLogo} />
+              <XswapTokenAnimated width="72px" src={tokenLogo} />
             )}
           </ConfirmedIcon>
           <AutoColumn gap="100px" justify={'center'}>
@@ -174,7 +174,7 @@ export default function ClaimModal() {
               </TYPE.largeHeader>
               {!claimConfirmed && (
                 <Text fontSize={36} color={'#ff007a'} fontWeight={800}>
-                  {unclaimedAmount?.toFixed(0, { groupSeparator: ',' } ?? '-')} ELT
+                  {unclaimedAmount?.toFixed(0, { groupSeparator: ',' } ?? '-')} XSWAP
                 </Text>
               )}
             </AutoColumn>

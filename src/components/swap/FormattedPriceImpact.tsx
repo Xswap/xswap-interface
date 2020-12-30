@@ -1,4 +1,4 @@
-import { Percent } from '@eliteswap/sdk'
+import { Percent } from '@xswap/sdk'
 import React from 'react'
 import { ONE_BIPS } from '../../constants'
 import { warningSeverity } from '../../utils/prices'

@@ -1,6 +1,6 @@
 import React, { useContext, useMemo } from 'react'
 import styled, { ThemeContext } from 'styled-components'
-import { Pair, JSBI } from '@eliteswap/sdk'
+import { Pair, JSBI } from '@xswap/sdk'
 import { Link } from 'react-router-dom'
 import { SwapPoolTabs } from '../../components/NavigationTabs'
 
@@ -179,7 +179,7 @@ export default function Pool() {
               <>
                 <ButtonSecondary>
                   <RowBetween>
-                    <ExternalLink href={'https://eliteswap.io/info/account/' + account}>
+                    <ExternalLink href={'https://xswap.io/info/account/' + account}>
                       Account analytics and accrued fees
                     </ExternalLink>
                     <span> ↗</span>

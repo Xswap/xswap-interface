@@ -1,4 +1,4 @@
-import { JSBI, Token, TokenAmount } from '@eliteswap/sdk'
+import { JSBI, Token, TokenAmount } from '@xswap/sdk'
 import { BigNumber } from 'ethers'
 import { STAKING_GENESIS } from '../state/stake/hooks'
 
@@ -56,10 +56,10 @@ function withVesting(before: JSBI, time: BigNumber, amount: number, start: numbe
   return before
 }
 
-export function computeEltCirculation(
-  elt: Token,
+export function computeXswapCirculation(
+  xswap: Token,
   blockTimestamp: BigNumber,
-  unclaimedElt: TokenAmount | undefined
+  unclaimedXswap: TokenAmount | undefined
 ): TokenAmount {
   let wholeAmount = JSBI.BigInt(USERS_AMOUNT)
 
@@ -110,6 +110,6 @@ export function computeEltCirculation(
   wholeAmount = withVesting(wholeAmount, blockTimestamp, TEAM_YEAR_3_AMOUNT, TREASURY_BEGIN_YEAR_3, TREASURY_END_YEAR_3)
   wholeAmount = withVesting(wholeAmount, blockTimestamp, TEAM_YEAR_4_AMOUNT, TREASURY_BEGIN_YEAR_4, TREASURY_END_YEAR_4)
 
-  const total = new TokenAmount(elt, JSBI.multiply(wholeAmount, JSBI.exponentiate(JSBI.BigInt(10), JSBI.BigInt(18))))
-  return unclaimedElt ? total.subtract(unclaimedElt) : total
+  const total = new TokenAmount(xswap, JSBI.multiply(wholeAmount, JSBI.exponentiate(JSBI.BigInt(10), JSBI.BigInt(18))))
+  return unclaimedXswap ? total.subtract(unclaimedXswap) : total
 }

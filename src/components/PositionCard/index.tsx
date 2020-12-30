@@ -1,4 +1,4 @@
-import { JSBI, Pair, Percent, TokenAmount } from '@eliteswap/sdk'
+import { JSBI, Pair, Percent, TokenAmount } from '@xswap/sdk'
 import { darken } from 'polished'
 import React, { useState } from 'react'
 import { ChevronDown, ChevronUp } from 'react-feather'
@@ -12,7 +12,7 @@ import { useTokenBalance } from '../../state/wallet/hooks'
 import { ExternalLink, TYPE, HideExtraSmall, ExtraSmallOnly } from '../../theme'
 import { currencyId } from '../../utils/currencyId'
 import { unwrappedToken } from '../../utils/wrappedCurrency'
-import { ButtonPrimary, ButtonSecondary, ButtonEmpty, ButtonELTGradient } from '../Button'
+import { ButtonPrimary, ButtonSecondary, ButtonEmpty, ButtonXSWAPGradient } from '../Button'
 import { transparentize } from 'polished'
 import { CardNoise } from '../earn/styled'
 
@@ -203,14 +203,14 @@ export default function FullPositionCard({ pair, border, stakedBalance }: Positi
               {!currency0 || !currency1 ? <Dots>Loading</Dots> : `${currency0.symbol}/${currency1.symbol}`}
             </Text>
             {!!stakedBalance && (
-              <ButtonELTGradient as={Link} to={`/elt/${currencyId(currency0)}/${currencyId(currency1)}`}>
-                <HideExtraSmall>Earning ELT</HideExtraSmall>
+              <ButtonXSWAPGradient as={Link} to={`/xswap/${currencyId(currency0)}/${currencyId(currency1)}`}>
+                <HideExtraSmall>Earning XSWAP</HideExtraSmall>
                 <ExtraSmallOnly>
                   <span role="img" aria-label="bolt">
                     ⚡
                   </span>
                 </ExtraSmallOnly>
-              </ButtonELTGradient>
+              </ButtonXSWAPGradient>
             )}
           </AutoRow>
 
@@ -306,7 +306,7 @@ export default function FullPositionCard({ pair, border, stakedBalance }: Positi
             <ButtonSecondary padding="8px" borderRadius="8px">
               <ExternalLink
                 style={{ width: '100%', textAlign: 'center' }}
-                href={`https://eliteswap.io/info/account/${account}`}
+                href={`https://xswap.io/info/account/${account}`}
               >
                 View accrued fees and analytics<span style={{ fontSize: '11px' }}>↗</span>
               </ExternalLink>
@@ -338,7 +338,7 @@ export default function FullPositionCard({ pair, border, stakedBalance }: Positi
                 padding="8px"
                 borderRadius="8px"
                 as={Link}
-                to={`/elt/${currencyId(currency0)}/${currencyId(currency1)}`}
+                to={`/xswap/${currencyId(currency0)}/${currencyId(currency1)}`}
                 width="100%"
               >
                 Manage Liquidity in Rewards Pool

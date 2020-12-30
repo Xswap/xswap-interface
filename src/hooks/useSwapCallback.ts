@@ -1,6 +1,6 @@
 import { BigNumber } from '@ethersproject/bignumber'
 import { Contract } from '@ethersproject/contracts'
-import { JSBI, Percent, Router, SwapParameters, Trade, TradeType } from '@eliteswap/sdk'
+import { JSBI, Percent, Router, SwapParameters, Trade, TradeType } from '@xswap/sdk'
 import { useMemo } from 'react'
 import { BIPS_BASE, INITIAL_ALLOWED_SLIPPAGE } from '../constants'
 import { getTradeVersion } from '../data/V1'
@@ -151,8 +151,8 @@ export function useSwapCallback(
                     console.debug('Call threw error', call, callError)
                     let errorMessage: string
                     switch (callError.reason) {
-                      case 'EliteswapV2Router: INSUFFICIENT_OUTPUT_AMOUNT':
-                      case 'EliteswapV2Router: EXCESSIVE_INPUT_AMOUNT':
+                      case 'XswapV2Router: INSUFFICIENT_OUTPUT_AMOUNT':
+                      case 'XswapV2Router: EXCESSIVE_INPUT_AMOUNT':
                         errorMessage =
                           'This transaction will not succeed either due to price movement or fee on transfer. Try increasing your slippage tolerance.'
                         break

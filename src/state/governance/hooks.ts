@@ -1,7 +1,7 @@
-import { ELT } from './../../constants/index'
-import { TokenAmount } from '@eliteswap/sdk'
+import { XSWAP } from './../../constants/index'
+import { TokenAmount } from '@xswap/sdk'
 import { isAddress } from 'ethers/lib/utils'
-import { useGovernanceContract, useEltContract } from '../../hooks/useContract'
+import { useGovernanceContract, useXswapContract } from '../../hooks/useContract'
 import { useSingleCallResult, useSingleContractMultipleData } from '../multicall/hooks'
 import { useActiveWeb3React } from '../../hooks'
 import { ethers, utils } from 'ethers'
@@ -9,7 +9,7 @@ import { calculateGasMargin } from '../../utils'
 import { TransactionResponse } from '@ethersproject/providers'
 import { useTransactionAdder } from '../transactions/hooks'
 import { useState, useEffect, useCallback } from 'react'
-import { abi as GOV_ABI } from '@eliteswap/governance/build/EliteGovernorAlpha.json'
+import { abi as GOV_ABI } from '@xswap/governance/build/XswapGovernorAlpha.json'
 
 interface ProposalDetail {
   target: string
@@ -148,47 +148,47 @@ export function useProposalData(id: string): ProposalData | undefined {
 // get the users delegatee if it exists
 export function useUserDelegatee(): string {
   const { account } = useActiveWeb3React()
-  const eltContract = useEltContract()
-  const { result } = useSingleCallResult(eltContract, 'delegates', [account ?? undefined])
+  const xswapContract = useXswapContract()
+  const { result } = useSingleCallResult(xswapContract, 'delegates', [account ?? undefined])
   return result?.[0] ?? undefined
 }
 
 // gets the users current votes
 export function useUserVotes(): TokenAmount | undefined {
   const { account, chainId } = useActiveWeb3React()
-  const eltContract = useEltContract()
+  const xswapContract = useXswapContract()
 
   // check for available votes
-  const elt = chainId ? ELT[chainId] : undefined
-  const votes = useSingleCallResult(eltContract, 'getCurrentVotes', [account ?? undefined])?.result?.[0]
-  return votes && elt ? new TokenAmount(elt, votes) : undefined
+  const xswap = chainId ? XSWAP[chainId] : undefined
+  const votes = useSingleCallResult(xswapContract, 'getCurrentVotes', [account ?? undefined])?.result?.[0]
+  return votes && xswap ? new TokenAmount(xswap, votes) : undefined
 }
 
 // fetch available votes as of block (usually proposal start block)
 export function useUserVotesAsOfBlock(block: number | undefined): TokenAmount | undefined {
   const { account, chainId } = useActiveWeb3React()
-  const eltContract = useEltContract()
+  const xswapContract = useXswapContract()
 
   // check for available votes
-  const elt = chainId ? ELT[chainId] : undefined
-  const votes = useSingleCallResult(eltContract, 'getPriorVotes', [account ?? undefined, block ?? undefined])
+  const xswap = chainId ? XSWAP[chainId] : undefined
+  const votes = useSingleCallResult(xswapContract, 'getPriorVotes', [account ?? undefined, block ?? undefined])
     ?.result?.[0]
-  return votes && elt ? new TokenAmount(elt, votes) : undefined
+  return votes && xswap ? new TokenAmount(xswap, votes) : undefined
 }
 
 export function useDelegateCallback(): (delegatee: string | undefined) => undefined | Promise<string> {
   const { account, chainId, library } = useActiveWeb3React()
   const addTransaction = useTransactionAdder()
 
-  const eltContract = useEltContract()
+  const xswapContract = useXswapContract()
 
   return useCallback(
     (delegatee: string | undefined) => {
       if (!library || !chainId || !account || !isAddress(delegatee ?? '')) return undefined
       const args = [delegatee]
-      if (!eltContract) throw new Error('No ELT Contract!')
-      return eltContract.estimateGas.delegate(...args, {}).then(estimatedGasLimit => {
-        return eltContract
+      if (!xswapContract) throw new Error('No XSWAP Contract!')
+      return xswapContract.estimateGas.delegate(...args, {}).then(estimatedGasLimit => {
+        return xswapContract
           .delegate(...args, { value: null, gasLimit: calculateGasMargin(estimatedGasLimit) })
           .then((response: TransactionResponse) => {
             addTransaction(response, {
@@ -198,7 +198,7 @@ export function useDelegateCallback(): (delegatee: string | undefined) => undefi
           })
       })
     },
-    [account, addTransaction, chainId, library, eltContract]
+    [account, addTransaction, chainId, library, xswapContract]
   )
 }
 

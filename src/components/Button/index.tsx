@@ -159,7 +159,7 @@ export const ButtonPink = styled(Base)`
   }
 `
 
-export const ButtonELTGradient = styled(ButtonPrimary)`
+export const ButtonXSWAPGradient = styled(ButtonPrimary)`
   color: white;
   padding: 4px 8px;
   height: 36px;
